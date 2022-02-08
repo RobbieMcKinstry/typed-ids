@@ -1,0 +1,24 @@
+name: Rust
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Install Stable Rust
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+            toolchain: stable
+            components: rustfmt, clippy
+      - name: Install Cargo Make
+        uses: actions-rs/cargo@v1.0.1
+        with:
+          command: install
+          args: cargo-make
+      - name: Run Cargo Make
+        uses: actions-rs/cargo@v1.0.1
+        with:
+          command: make
