@@ -1,0 +1,17 @@
+[package]
+name = "typed_ids"
+version = "0.1.0"
+authors = ["Felix Bracken <crates@whiterabbit.llc>"]
+edition = "2021"
+license = "MIT"
+keywords = ["identifier", "id", "serial", "uuid", "typed"]
+categories = ["rust-patterns"]
+description = "Create unique identifiers for each type. This newtype approach helps to make illegal states unrepresentable by typing your unique ids."
+repository = "https://github.com/RobbieMcKinstry/typed-ids"
+exclude = ["Makefile.toml"]
+
+[dependencies]
+
+[dev-dependencies]
+static_assertions = "1.1.0"
+pretty_assertions = "1.0.0"
