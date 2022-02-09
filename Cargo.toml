@@ -1,6 +1,6 @@
 [package]
 name = "typed_ids"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Felix Bracken <crates@whiterabbit.llc>"]
 edition = "2021"
 license = "MIT"
