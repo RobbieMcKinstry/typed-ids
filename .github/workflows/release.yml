@@ -19,8 +19,11 @@ jobs:
         with:
           command: install
           args: cargo-make
+      - name: Login to Crates.io
+        uses: actions-rs/cargo@v1.0.1
+        with:
+          command: login
       - name: Publish via Cargo Make
         uses: actions-rs/cargo@v1.0.1
         with:
-          command: make
-          args: publish
+          command: publish

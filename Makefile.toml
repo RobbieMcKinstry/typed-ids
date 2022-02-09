@@ -1,7 +1,3 @@
-[env]
-REGISTRY = "registry.digitalocean.com/new-sheriff"
-IMAGE_NAME = "big-iron"
-
 [tasks.default]
 description = "Runs on `cargo make`"
 category = "Development"
