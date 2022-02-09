@@ -5,4 +5,4 @@ use std::hash::Hash;
 /// thread-safe, ordered, and hashable. The ordered and hashable requirements
 /// could probably be dropped, but it sends to be more useful than not.
 /// In the future, this crate could add a variant for non-Ord and non-Hash Ids.
-pub trait Id<T: ?Sized>: Ord + Copy + Send + Sync + Hash + 'static  {}
+pub trait Id<T: ?Sized>: Ord + Copy + Send + Sync + Hash + 'static {}

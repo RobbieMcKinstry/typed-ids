@@ -1,8 +1,8 @@
 use crate::id::Id;
+use std::cmp::Ordering;
+use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use std::num::NonZeroU64;
-use std::hash::{Hash, Hasher};
-use std::cmp::Ordering;
 use std::sync::atomic::AtomicPtr;
 
 #[derive(Debug)]
@@ -10,6 +10,7 @@ pub struct SerialU64<T: ?Sized>(NonZeroU64, PhantomData<AtomicPtr<Box<T>>>);
 
 impl<T: ?Sized> SerialU64<T> {
     /// Collect the inner value, returnng the u64.
+    #[allow(dead_code)]
     pub fn get(self) -> u64 {
         self.0.get()
     }
@@ -25,9 +26,7 @@ impl<T: ?Sized> TryFrom<u64> for SerialU64<T> {
     type Error = &'static str;
     fn try_from(val: u64) -> Result<Self, Self::Error> {
         let err = "Serial must be greater than 0";
-        NonZeroU64::new(val)
-            .ok_or(err)
-            .map(SerialU64::from)
+        NonZeroU64::new(val).ok_or(err).map(SerialU64::from)
     }
 }
 
@@ -51,7 +50,7 @@ impl<T: ?Sized> PartialEq for SerialU64<T> {
     }
 }
 
-impl <T: ?Sized> Ord for SerialU64<T> {
+impl<T: ?Sized> Ord for SerialU64<T> {
     fn cmp(&self, other: &Self) -> Ordering {
         self.0.cmp(&other.0)
     }
