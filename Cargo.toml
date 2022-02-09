@@ -8,7 +8,7 @@ keywords = ["identifier", "id", "serial", "uuid", "typed"]
 categories = ["rust-patterns"]
 description = "Create unique identifiers for each type. This newtype approach helps to make illegal states unrepresentable by typing your unique ids."
 repository = "https://github.com/RobbieMcKinstry/typed-ids"
-exclude = ["Makefile.toml"]
+exclude = ["/Makefile.toml", ".github/", "/.gitignore"]
 
 [dependencies]
 
