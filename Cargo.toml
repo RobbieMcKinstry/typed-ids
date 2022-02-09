@@ -1,6 +1,6 @@
 [package]
 name = "typed_ids"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Felix Bracken <crates@whiterabbit.llc>"]
 edition = "2021"
 license = "MIT"
@@ -11,6 +11,9 @@ repository = "https://github.com/RobbieMcKinstry/typed-ids"
 exclude = ["/Makefile.toml", ".github/", "/.gitignore"]
 
 [dependencies]
+flume = "0.10.9"
+tokio = { version = "1.12.0", features = ["rt-multi-thread", "macros"] }
+uuid = { version = "0.8", features = ["v4"] }
 
 [dev-dependencies]
 pretty_assertions = "1.0.0"
