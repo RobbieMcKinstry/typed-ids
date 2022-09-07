@@ -31,7 +31,6 @@ dependencies = [
   "docs",
   "post-docs",
   "test-flow",
-  "coverage-flow",
   "post-ci-flow",
 ]
 
