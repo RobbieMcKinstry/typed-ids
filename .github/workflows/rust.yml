@@ -5,6 +5,8 @@ on: [push, pull_request]
 jobs:
   validate:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/RobbieMcKinstr/rust-tools:nightly
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -15,6 +17,7 @@ jobs:
             components: rustfmt, clippy
       - name: Check semver
         uses: obi1kenobi/cargo-semver-checks-action@v1
+        continue-on-error: true
       - name: Install Cargo Make
         uses: actions-rs/cargo@v1.0.1
         with:
