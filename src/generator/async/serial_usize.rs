@@ -1,35 +1,31 @@
-use crate::generator::Generator;
-use crate::SerialU64;
+use super::generator::Generator;
+use crate::SerialUsize;
 
-pub struct SerialU64Generator<T: 'static> {
-    gen: Generator<SerialU64<T>>,
+pub struct SerialUsizeGenerator<T: 'static> {
+    gen: Generator<SerialUsize<T>>,
 }
 
-impl<T: 'static> SerialU64Generator<T> {
+impl<T: 'static> SerialUsizeGenerator<T> {
     pub fn new() -> Self {
         // Create a closure which captures an integer counter.
         // This closure provides the generation logic used
         // by the underlying Generator type.
-        let mut counter = 0u64;
+        let mut counter = 0usize;
         let closure = move || {
             counter += 1;
-            SerialU64::try_from(counter).unwrap()
+            SerialUsize::try_from(counter).unwrap()
         };
         // Use this closure for generation logic.
         let gen = Generator::new(closure);
         Self { gen }
     }
 
-    pub async fn next(&self) -> SerialU64<T> {
+    pub async fn next(&self) -> SerialUsize<T> {
         self.gen.next().await
-    }
-
-    pub async fn next_sync(&self) -> SerialU64<T> {
-        self.gen.next_sync()
     }
 }
 
-impl<T: 'static> Default for SerialU64Generator<T> {
+impl<T: 'static> Default for SerialUsizeGenerator<T> {
     fn default() -> Self {
         Self::new()
     }
@@ -37,8 +33,8 @@ impl<T: 'static> Default for SerialU64Generator<T> {
 
 #[cfg(test)]
 mod tests {
-    use super::SerialU64Generator;
-    use crate::SerialU64;
+    use super::SerialUsizeGenerator;
+    use crate::SerialUsize;
     use pretty_assertions::assert_eq;
     use tokio::runtime::Runtime;
 
@@ -46,9 +42,9 @@ mod tests {
     fn generate_id() {
         let rt = Runtime::new().unwrap();
         rt.block_on(async {
-            let generator: SerialU64Generator<()> = Default::default();
+            let generator: SerialUsizeGenerator<()> = Default::default();
             for i in 1..11 {
-                let expected: SerialU64<()> = SerialU64::try_from(i).unwrap();
+                let expected: SerialUsize<()> = SerialUsize::try_from(i).unwrap();
                 let observed = generator.next().await;
                 assert_eq!(expected, observed);
             }

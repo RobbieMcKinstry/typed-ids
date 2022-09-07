@@ -1,4 +1,4 @@
-use crate::generator::Generator;
+use super::generator::Generator;
 use crate::SerialUsize;
 
 pub struct SerialUsizeGenerator<T: 'static> {
@@ -20,12 +20,8 @@ impl<T: 'static> SerialUsizeGenerator<T> {
         Self { gen }
     }
 
-    pub async fn next(&self) -> SerialUsize<T> {
-        self.gen.next().await
-    }
-
-    pub async fn next_sync(&self) -> SerialUsize<T> {
-        self.gen.next_sync()
+    pub fn next(&mut self) -> SerialUsize<T> {
+        self.gen.next()
     }
 }
 
@@ -40,18 +36,14 @@ mod tests {
     use super::SerialUsizeGenerator;
     use crate::SerialUsize;
     use pretty_assertions::assert_eq;
-    use tokio::runtime::Runtime;
 
     #[test]
     fn generate_id() {
-        let rt = Runtime::new().unwrap();
-        rt.block_on(async {
-            let generator: SerialUsizeGenerator<()> = Default::default();
-            for i in 1..11 {
-                let expected: SerialUsize<()> = SerialUsize::try_from(i).unwrap();
-                let observed = generator.next().await;
-                assert_eq!(expected, observed);
-            }
-        })
+        let mut generator: SerialUsizeGenerator<()> = Default::default();
+        for i in 1..11 {
+            let expected: SerialUsize<()> = SerialUsize::try_from(i).unwrap();
+            let observed = generator.next();
+            assert_eq!(expected, observed);
+        }
     }
 }
