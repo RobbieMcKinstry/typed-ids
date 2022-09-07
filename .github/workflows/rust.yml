@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/robbiemckinstry/rust-tools:nightly
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.PACKAGES_ACCESS_TOKEN }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
