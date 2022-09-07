@@ -13,6 +13,8 @@ jobs:
         with:
             toolchain: stable
             components: rustfmt, clippy
+      - name: Check semver
+        uses: obi1kenobi/cargo-semver-checks-action@v1
       - name: Install Cargo Make
         uses: actions-rs/cargo@v1.0.1
         with:
